@@ -2,9 +2,10 @@
 Here's a stupid Python 3 example for communicating with the Boring Man v2.0.0 RCON port.
 
 Below is the JSON documentation for each RCON event.
+Documentation for request events will come later
 
 ```
-global:
+GLOBAL:
 These entries are present in every RCON event.
 "Time": Unix timestamp the RCON event was sent.
 "EventID": The enum ID of the RCON event.
