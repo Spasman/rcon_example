@@ -60,7 +60,7 @@ Triggers when a player changes team.
 "NewTeam": Team player is changing to.
 "Autobalanced": Returns whether the player was autobalanced (1) or not (0).
 
-player_damage:
+player_damage: (DISABLED FOR NOW)
 Triggers when a player takes damage.
 "AttackerID": Damage dealer's player ID.
 "VictimID": Damage receiver's player ID.
