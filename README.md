@@ -55,7 +55,7 @@ No additional JSON data.
 
 player_team_change:
 Triggers when a player changes team.
-"ID": Player ID of the player changing teams.
+"PlayerID": Player ID of the player changing teams.
 "OldTeam": Player's old team.
 "NewTeam": Team player is changing to.
 "Autobalanced": Returns whether the player was autobalanced (1) or not (0).
@@ -69,11 +69,11 @@ Triggers when a player takes damage.
 
 player_loaded:
 Triggers when a player is finished loading their map.
-"ID": ID of player who has finished loading.
+"PlayerID": ID of player who has finished loading.
 
 player_level_up:
 Triggers when a player levels up.
-"ID": ID of player who leveled up.
+"PlayerID": ID of player who leveled up.
 "Level": New level of the player who leveled up.
 "NewWeapon": Returns a weapon ID if the player unlocked a new weapon.
 "SkinWeapon": Returns the weapon ID of the weapon skin if the player unlocked a new skin.
@@ -81,14 +81,19 @@ Triggers when a player levels up.
 
 player_get_powerup:
 Triggers when a player gets a power up
-"ID": ID of player who got a power up.
+"PlayerID": ID of player who got a power up.
 "PowerUp": Power up ID of the type of power up the player got.
 "X": X coordinate of the player when the power up was activated.
 "Y": Y coordinate of the player when the power up was activated.
 
+player_taunt:
+Triggers when a player uses a emote, such as /drink or /smoke
+"PlayerID": The ID of the player who emoted.
+"TauntID": The ID of the emote used.
+
 player_spawn:
 Triggers when a player or NPC respawns.
-"ID": Returns the ID of the player who spawned.
+"PlayerID": Returns the ID of the player who spawned.
 "X": Returns the X coordinate of where the player spawned.
 "Y": Returns the Y coordinate of where the player spawned.
 "Hat": Returns the hat ID of the player
@@ -149,7 +154,7 @@ player_connect:
 Triggers when a new player connects to the server.
 "IP": The IP address of the connecting player.
 "Port": The port of the connecting player.
-"ID": The player ID of the connecting player.
+"PlayerID": The player ID of the connecting player.
 "Profile": The profile ID of the connected player. (Steam profile, gamejolt, etc)
 "IsAdmin": Returns whether the connecting player is an admin (1) or not (0).
 
@@ -157,7 +162,7 @@ player_disconnect:
 Triggers when a player disconnects from the server.
 "IP": The IP address of the disconnecting player.
 "Port": The port of the disconnecting player.
-"ID": The player ID of the disconnected player.
+"PlayerID": The player ID of the disconnected player.
 "Profile": The profile ID of the disconnected player. (Steam profile, gamejolt, etc)
 "IsAdmin": Returns whether the disconnecting player is an admin (1) or not (0).
 "Kicked": Returns whether the player was kicked or banned (1) or disconnected on their own (0).
@@ -274,6 +279,25 @@ Triggers when a player opens a chest.
 "ChestID": ID of the chest that was opened.
 "ChestCost": Returns the cost to open the chest, only on Survival mode.
 "PlayerMoney": Returns what the buying player's money amount is after buying the chest, only on Survival mode.
+
+survival_get_vice:
+Triggers when a player collects a vice in Survival mode.
+"PlayerID": The player ID of the collecting player
+"ViceID": The ID of the type of vice collected
+"X": The X position of where the vice was.
+"Y": The Y position of where the vice was.
+
+survival_use_vice:
+Triggers when a player uses a consumable vice. (Rubbing Alcohol, Smokes, etc)
+"PlayerID": The player ID of who used the vice.
+"ViceID": The ID of the vice being consumed
+
+survival_player_revive:
+Triggers when a player is revived outside of a new wave starting.
+"RevivingPlayerID": The player ID of the reviving player.
+"SaviorPlayerID": The player ID of the player who revived the dead player. Will be the same as RevivingPlayerID if they revived themselves.
+"Antacids": Will be set to "1" if the savior player used the antacids vice.
+"Cost": The amount of money it cost to revive the dead player, unless they used the antacids vice then it is set to "1"
 
 command_entered:
 Triggered when a command is entered into the console.
