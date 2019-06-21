@@ -245,6 +245,7 @@ Triggers when a new match starts, does not trigger until warm up phase ends (if 
 "MapFile": The file path of the currently loaded map.
 "GameModeID": Returns the ID of the currently selected game mode.
 "WorkshopID": Returns the Steam Workshop ID of the map, if it has one.
+"MD5": Returns the MD5 hash string of the manifest bmap.txt file for the current map. It's used for checking file consistency.
 
 match_end:
 Triggers when the current match ends.
