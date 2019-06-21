@@ -85,6 +85,20 @@ end_read = b'\xe2\x94\x94' #translates to ascii character "└"
 connected = 0 #used for allowing the main loop during a connection
 timeout = 0 #used for timing out a bad connection
 
+#this function isn't used but its example code of parsing the 'PlayerData' JSON set
+#It itorates through an entire JSON string looking for keys that start with the string 'PlayerData'
+#If found, you can use the 'k' variable as an accessor for each key/value pair
+#just look at the damn code, whatever, fuck
+def scoreboard(jsonString):
+	js = json.loads(jsonString)
+	for (k, v) in js.items():
+		if k.startswith("PlayerData"):
+			name = js[k]['Name']
+			kills = js[k]['Kills']
+			deaths = js[k]['Deaths']
+			assists = js[k]['Assists']
+			print(str(name)+" - K: "+str(kills)+" D: "+str(deaths)+" A: "+str(assists))
+
 #declaring a function for sending packets over socket to game maker networking
 #the message contains a signed integer for the enum event ID, then a string with data to process on the server
 def send_packet(packetData,packetEnum):
