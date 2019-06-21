@@ -111,6 +111,7 @@ Triggers when a player dies.
 "KillerWeapon": The ID of the weapon that the killer used.
 "Headshot": Returns whether the victim was killed by a head shot (or other critical attacks)
 "DeathType": Returns the death animation of the victim, if available.
+"Teamkill": Returns whether the kill was a teamkill or not. Friendly Fire mutator required.
 "VictimX": Returns the X coordinate of where the victim died, if available.
 "VictimY": Returns the Y coordinate of where the victim died, if available.
 "KillerX": Returns the X coordinate of where the killer was when the victim died, if available.
