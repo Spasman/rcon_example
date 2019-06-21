@@ -63,7 +63,7 @@ class rcon_event(Enum):
 	survival_get_vice = 43
 	survival_use_vice = 44
 	survival_player_revive = 45
-	player_taunt = 4
+	player_taunt = 46
 
 #use these enums when sending requests to your server so the server knows what to do with them
 class rcon_receive(Enum):
