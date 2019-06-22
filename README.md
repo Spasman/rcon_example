@@ -20,6 +20,7 @@ No additional JSON data.
 
 chat_message:
 Triggers when a player sends a chat message in the Server tab.
+"PlayerID": Gives the ID of the player who sent the message.
 "Name": Name of the user who sent the message.
 "Profile": Returns the profile ID of the sending user. (Steam, Gamejolt, etc)
 "Message": Returns the chat message itself.
