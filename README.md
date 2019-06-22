@@ -257,6 +257,7 @@ Triggers when the current match ends.
 "WinnerColor": Returns the GML color code of the WinnerText string.
 "WinnerID": Returns the player ID of the winner, if it's a game mode like Deathmatch. Returns -1 if not available.
 "WinnerTeam": Returns the team ID that won the match if its a team-based game mode. Returns -1 if not available.
+"GameModeID": Returns the ID of the currently selected game mode.
 "NextMapFile": The file path for the next map being loaded.
 "NextMap": The name of the next map, if found. If not, defaults to file name.
 "PlayerData<ID#>": Holds additional JSON data for each player, similar when using rcon_receive.request_player command.
