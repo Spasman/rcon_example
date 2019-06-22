@@ -11,11 +11,11 @@ These entries are present in every RCON event.
 "EventID": The enum ID of the RCON event.
 
 server_startup:
-Triggers when the server start.
+Triggers when the server starts.
 No additional JSON data.
 
 server_shutdown:
-Triggers when the server start.
+Triggers when the server is shutdown.
 No additional JSON data.
 
 chat_message:
