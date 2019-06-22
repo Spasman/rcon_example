@@ -35,6 +35,9 @@ Triggers when an RCON client successfully logs in.
 "RconIP": IP address of the connected RCON client.
 "RconPort": Port of the connected RCON client.
 "RconSocket": TCP Socket ID of the connected RCON client.
+"GameModeID": The current game mode of the server that was connected to.
+"MapName": The name of the current map running on the server that was connected to.
+
 
 rcon_disconnect:
 Triggers when an RCON client disconencts.
