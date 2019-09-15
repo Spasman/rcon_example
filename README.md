@@ -1,4 +1,4 @@
-# Boring Man v2.0.0 RCON example
+# Boring Man v2.0.0 RCON documentation & example
 Here's a stupid Python 3 example for communicating with the Boring Man v2.0.0 RCON port. Python 2 might work but I haven't tested it.
 
 I recommend you to be pretty familiar with programming and how networking works before using this guide. The set-up guide below will get you started on connecting the example to your B-Man server, but you are on your own past that point.
