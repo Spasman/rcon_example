@@ -406,16 +406,22 @@ With the string, each RCON request is different, check the list of enums below f
 
 ```
 login (0):
-Send this request when you want your app to login into the B-Man server. For the string, use the RCON password that is set in your bm_server.ini file. You will need to do this first before anything else. You will get a rcon_logged_in RCON event if you successfully log in. If you're having trouble logging in, the B-Man console window should output login error messages if the connection was made successfully.
+Send this request when you want your app to login into the B-Man server. For the string, use the RCON password that is set in your bm_server.ini file. 
+You will need to do this first before anything else. You will get a rcon_logged_in RCON event if you successfully log in. 
+If you're having trouble logging in, the B-Man console window should output login error messages if the connection was made successfully.
 
 ping (1):
-Send this request periodically to keep your RCON connection alive. You should use this to respond to the rcon_ping RCON event that is sent every 5 seconds to any RCON clients from the B-Man server. There is no requirement as to what to put in the string, but you should put something like "1" because Game Maker sometimes can't process empty strings.
+Send this request periodically to keep your RCON connection alive. You should use this to respond to the rcon_ping RCON event that is sent every 5 seconds to any RCON clients from the B-Man server. 
+There is no requirement as to what to put in the string, but you should put something like "1" because Game Maker sometimes can't process empty strings.
 
 command (2):
-Send this request to manually input a B-Man console command into the server. The string should contain the entire command you want to enter. (Ex. sending the string " kick "Spasman" "Cheating" " to kick the player Spasman from the server for the reason 'Cheating'). You should get a command_entered RCON event containing the resulting game console log message from entering the command, whether the command was successful or comes back with an error.
+Send this request to manually input a B-Man console command into the server. The string should contain the entire command you want to enter. (Ex. sending the string " kick "Spasman" "Cheating" " to kick the player Spasman from the server for the reason 'Cheating'). 
+You should get a command_entered RCON event containing the resulting game console log message from entering the command, whether the command was successful or comes back with an error.
 
 confirm (6):
-When your B-Man server has RCON clients, it will throttle sending RCON requests every 10 ticks for each individual client. You can skip this throttle by sending back a confirm enum back to the B-Man server when your app receives an RCON event. This is entirely OPTIONAL, and only recommended to be used if you plan to have your B-Man server connected to multiple RCON clients or if you want your app to receive RCON events slightly faster. There is no requirement as to what to put in the string, but you should put something like "1" because Game Maker sometimes can't process empty strings.
+When your B-Man server has RCON clients, it will throttle sending RCON requests every 10 ticks for each individual client. You can skip this throttle by sending back a confirm enum back to the B-Man server when your app receives an RCON event.
+This is entirely OPTIONAL, and only recommended to be used if you plan to have your B-Man server connected to multiple RCON clients or if you want your app to receive RCON events slightly faster.
+There is no requirement as to what to put in the string, but you should put something like "1" because Game Maker sometimes can't process empty strings.
 ```
 
 The below RCON requests are special, as they need two parameters in the string to be processed succesfully. The first parameter is the "Request ID", which is something unique you can set. A random number, an incremental value or even a word, but it will always need to be a string in quotes since it will be entered into the B-Man console. The second parameter is unique to each enum request and is documented below.
@@ -428,13 +434,19 @@ For example, receiving a CaseID of "3" signals that it's a request_player reques
 
 ```
 request_player (3):
-Send this request to get a 'PlayerData#' JSON for the specified player (Check above for documentation on PlayerData). The first parameter in the string should be your request ID and the second parameter should contain the name of the player OR their player ID. You should get a request_data RCON event that contains the PlayerData# JSON you need. You won't get anything if the player wasn't found.
+Send this request to get a 'PlayerData#' JSON for the specified player (Check above for documentation on PlayerData).
+The first parameter in the string should be your request ID and the second parameter should contain the name of the player OR their player ID.
+You should get a request_data RCON event that contains the PlayerData# JSON you need. You won't get anything if the player wasn't found.
 
 request_bounce (4):
-You can't actually send this to the B-Man server as it won't do anything, it's just a response enum when the "rcon" command is entered into the B-Man server's console window. The "rcon" console command lets you send any string you want to *ALL* connected and logged in rcon clients. The response itself will contain a JSON key called "String" which is the string data sent out by the "rcon" command. I wouldn't worry about this enum unless you know what you're doing.
+You can't actually send this to the B-Man server as it won't do anything, it's just a response enum when the "rcon" command is entered into the B-Man server's console window.
+The "rcon" console command lets you send any string you want to *ALL* connected and logged in rcon clients. The response itself will contain a JSON key called "String" which is the string data sent out by the "rcon" command.
+I wouldn't worry about this enum unless you know what you're doing.
 
 request_match (5):
-You can send this request enum to get some current match data, such as time left and the team scores. The first parameter in the string should be your request ID and there is no requirement for the second paramter, but you should put something like "1" because a second parameter is always required because I'm a bad programmer. Along with "CaseID" and "RequestID", you should get additional JSON keys that return data for the current match, they are listed below.
+You can send this request enum to get some current match data, such as time left and the team scores.
+The first parameter in the string should be your request ID and there is no requirement for the second paramter, but you should put something like "1" because a second parameter is always required because I'm a bad programmer.
+Along with "CaseID" and "RequestID", you should get additional JSON keys that return data for the current match, they are listed below.
 
 "ServerName": The name of the server.
 "GamemodeName": The name of the game mode the server is currently running.
@@ -452,7 +464,9 @@ You can send this request enum to get some current match data, such as time left
 "Team2Score": Returns the current score of The Man, if available.
 
 request_scoreboard (7):
-Send this enum to get a response similar to request_match, but it also contains PlayerData nested JSONs *for every connected player in the game*. If your server is heavily populated, this will make a HUGE JSON, so use this RCON request sparingly. Each nested PlayerData JSON will have the player's ID number after PlayerData, like mentioned above, along with some current match data that is listed below. See above for documentation on PlayerData JSONs.
+Send this enum to get a response similar to request_match, but it also contains PlayerData nested JSONs *for every connected player in the game*.
+If your server is heavily populated, this will make a HUGE JSON, so use this RCON request sparingly. Each nested PlayerData JSON will have the player's ID number after PlayerData, like mentioned above, along with some current match data that is listed below.
+See above for documentation on PlayerData JSONs.
 
 "ServerName": The name of the server.
 "GamemodeName": The name of the game mode the server is currently running.
