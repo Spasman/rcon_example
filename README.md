@@ -17,7 +17,7 @@ RconPort="42070"
 RconPassword="admin"
 ```
 
-Set "RconEnabled" to "1" to enable RCON on your server. RCON has a slight impact on server performance, so don't leave it on if you're not going to use it. You can then set a password with RconPassword, which is what your app will need to send to the server to log into it's RCON feature.
+Set "RconEnabled" to "1" to enable RCON on your server. RCON has a slight impact on server performance, so don't leave it on if you're not going to use it. You can then set a password with RconPassword, which is what your app will need to send to the server to log into it's RCON feature. You can actually leave RconPassword blank and it will accept any RCON connections without needing a login, but it's not recommended, obviously.
 
 Lastly is the RconPort value, which you can optionally change and is recommended to do so if you plan on running multiple servers utilizing RCON. You will also need to portforward this port on TCP if you plan on using RCON remotely. If your RCON app is running alongside your B-Man server on the same device (Connecting using 127.0.0.1), then port forwarding is not required.
 
