@@ -21,6 +21,16 @@ Set "RconEnabled" to "1" to enable RCON on your server. RCON has a slight impact
 
 Lastly is the RconPort value, which you can optionally change and is recommended to do so if you plan on running multiple servers utilizing RCON. You will also need to portforward this port on TCP if you plan on using RCON remotely. If your RCON app is running alongside your B-Man server on the same device (Connecting using 127.0.0.1), then port forwarding is not required.
 
+### Store ID numbers
+In a lot of these RCON events, you will get a 'Profile/KillerProfile/Etc' or 'Store' key. The Store value holds the ID of what login platform the calling player is running B-Man on, such as Steam, GameJolt or Discord. The IDs are listed here:
+```
+0 = Steam
+1 = Discord
+2 = Itch.io
+3 = GameJolt
+```
+This list will expand as B-Man supports more login platforms. You should utilize the Store value when collecting stats on specific players by their profile ID, as it is very possible for a Discord player to have the same profile ID number as a GameJolt player.
+
 ### RCON events and their JSON data
 
 When something happens in your Boring Man server, any RCON clients connected to it will receive an RCON event if available, which is any of the values listed below:
@@ -50,14 +60,14 @@ No additional JSON data.
 player_connect (4):
 Triggers when a new player connects to the server.
 "IP": The IP address of the connecting player.
-"Store": The platform the player is using (Steam, gamejolt, etc)
 "PlayerID": The player ID of the connecting player.
-"Profile": The profile ID of the connected player. (Steam profile, gamejolt, etc)
+"Profile": Holds a JSON string with 2 keys, 'ProfileID' for the player profile ID and 'Store' for the player's store platform ID
 "IsAdmin": Returns whether the connecting player is an admin (1) or not (0).
 
 player_spawn (5):
 Triggers when a player or NPC respawns.
 "PlayerID": Returns the ID of the player who spawned.
+"Profile": Holds a JSON string with 2 keys, 'ProfileID' for the player profile ID and 'Store' for the player's store platform ID
 "X": Returns the X coordinate of where the player spawned.
 "Y": Returns the Y coordinate of where the player spawned.
 "Hat": Returns the hat ID of the player
@@ -77,6 +87,9 @@ Triggers when a player dies.
 "VictimID": ID of the player who was killed.
 "KillerID": ID of the player who killed the victim.
 "AssisterID": ID of the assisting player if there was an assist.
+"VictimProfile": Holds a JSON string with 2 keys, 'ProfileID' for the victim profile ID and 'Store' for the victim store platform ID
+"KillerProfile": Holds a JSON string with 2 keys, 'ProfileID' for the killer profile ID and 'Store' for the killer store platform ID
+"AssisterProfile": Holds a JSON string with 2 keys, 'ProfileID' for the assist profile ID and 'Store' for the assist store platform ID, if available.
 "KillerWeapon": The ID of the weapon that the killer used.
 "Headshot": Returns whether the victim was killed by a head shot (or other critical attacks)
 "DeathType": Returns the death animation of the victim, if available.
@@ -92,8 +105,7 @@ player_disconnect (7):
 Triggers when a player disconnects from the server.
 "IP": The IP address of the disconnecting player.
 "PlayerID": The player ID of the disconnected player.
-"Profile": The profile ID of the disconnected player.
-"Store": The platform the player is using (Steam, gamejolt, etc)
+"Profile": Holds a JSON string with 2 keys, 'ProfileID' for the player profile ID and 'Store' for the player's store platform ID
 "IsAdmin": Returns whether the disconnecting player is an admin (1) or not (0).
 "Kicked": Returns whether the player was kicked or banned (1) or disconnected on their own (0).
 "KickReason": Returns the kick reason string if the disconnecting player was kicked or banned.
@@ -101,6 +113,7 @@ Triggers when a player disconnects from the server.
 player_team_change (8):
 Triggers when a player changes team.
 "PlayerID": Player ID of the player changing teams.
+"Profile": Holds a JSON string with 2 keys, 'ProfileID' for the player profile ID and 'Store' for the player's store platform ID
 "OldTeam": Player's old team.
 "NewTeam": Team player is changing to.
 "Autobalanced": Returns whether the player was autobalanced (1) or not (0).
@@ -108,6 +121,7 @@ Triggers when a player changes team.
 player_level_up (9):
 Triggers when a player levels up.
 "PlayerID": ID of player who leveled up.
+"Profile": Holds a JSON string with 2 keys, 'ProfileID' for the player profile ID and 'Store' for the player's store platform ID
 "Level": New level of the player who leveled up.
 "NewWeapon": Returns a weapon ID if the player unlocked a new weapon.
 "SkinWeapon": Returns the weapon ID of the weapon skin if the player unlocked a new skin.
@@ -116,6 +130,7 @@ Triggers when a player levels up.
 player_get_powerup (10):
 Triggers when a player gets a power up
 "PlayerID": ID of player who got a power up.
+"Profile": Holds a JSON string with 2 keys, 'ProfileID' for the player profile ID and 'Store' for the player's store platform ID
 "PowerUp": Power up ID of the type of power up the player got.
 "X": X coordinate of the player when the power up was activated.
 "Y": Y coordinate of the player when the power up was activated.
@@ -124,12 +139,15 @@ player_damage (11): (DISABLED FOR NOW)
 Triggers when a player takes damage.
 "AttackerID": Damage dealer's player ID.
 "VictimID": Damage receiver's player ID.
+"AttackerProfile": Holds a JSON string with 2 keys, 'ProfileID' for the attacker profile ID and 'Store' for the attacker store platform ID
+"VictimProfile": Holds a JSON string with 2 keys, 'ProfileID' for the victim profile ID and 'Store' for the victim store platform ID
 "Headshot": Returns whether it's headshot damage (1) or not (0).
 "Damage": Amount of damage dealt in the event.
 
 player_loaded (12):
 Triggers when a player is finished loading their map.
 "PlayerID": ID of player who has finished loading.
+"Profile": Holds a JSON string with 2 keys, 'ProfileID' for the player profile ID and 'Store' for the player's store platform ID
 
 tdm_round_start (13):
 Triggers when a Team Deathmatch round starts.
@@ -165,6 +183,7 @@ Triggers when the server switches team sides in Team Deathmatch.
 ctf_taken (17):
 Triggers when a flag in CTF is stolen.
 "CarrierID": Returns the player ID of the flag carrier
+"CarrierProfile": Holds a JSON string with 2 keys, 'ProfileID' for the flag carrier profile ID and 'Store' for the flag carrier store platform ID
 "FlagTeam": Returns the team ID of the flag that has been stolen.
 "WasHome": Returns whether the flag was taken from home base (1) or not (0).
 "FlagX": Returns the X coordinate of the flag.
@@ -173,6 +192,7 @@ Triggers when a flag in CTF is stolen.
 ctf_dropped (18):
 Triggers when a flag in CTF is dropped by a flag carrier.
 "CarrierID": Returns the player ID of the flag carrier
+"CarrierProfile": Holds a JSON string with 2 keys, 'ProfileID' for the flag carrier profile ID and 'Store' for the flag carrier store platform ID
 "FlagTeam": Returns the team ID of the flag that has been stolen.
 "Thrown": Returns whether or not the flag was thrown purposely by the carrier.
 "FlagX": Returns the X coordinate of the flag.
@@ -181,6 +201,7 @@ Triggers when a flag in CTF is dropped by a flag carrier.
 ctf_returned (19):
 Triggers when a flag is returned to home base.
 "ReturnPlayerID": The player ID of the flag returner, if available.
+"ReturnProfile": Holds a JSON string with 2 keys, 'ProfileID' for the returning player profile ID and 'Store' for the returning player store platform ID, if available.
 "ReturnType": Returns a value that determines how the flag was returned. 0 = Voided out of map, 1 = Returned by player, 2 = fell in lava, 3 = Timed out
 "FlagX": Returns the X coordinate of the flag before it went back to home base.
 "FlagY": Returns the Y coordinate of the flag before it went back to home base.
@@ -188,6 +209,7 @@ Triggers when a flag is returned to home base.
 ctf_scored (20):
 Triggers when a team scores a point in CTF.
 "CarrierID": Returns the player ID of the scoring flag carrier.
+"CarrierProfile": Holds a JSON string with 2 keys, 'ProfileID' for the flag carrier profile ID and 'Store' for the flag carrier store platform ID
 "ScoringTeam": Returns the team ID of the scoring team.
 "Score1": Returns the score for USC
 "Score2": Returns the score for The Man
@@ -197,36 +219,42 @@ Triggers when a generator is repaired.
 "ID": ID of the generator
 "Team": Returns the team ID of the generator that was repaired.
 "RepairerID": Returns the player ID of the player who repaired the generator, if available.
+"RepairerProfile": Holds a JSON string with 2 keys, 'ProfileID' for the repairing player profile ID and 'Store' for the repairing player store platform ID, if available.
 
 ctf_generator_destroyed (22):
 Triggers when a generator is destroyed.
 "ID": ID of the generator
 "Team": Returns the team ID of the generator that was destroyed.
 "KillerID": Returns the player ID of the player who destroyed the generator, if available.
+"KillerProfile": Holds a JSON string with 2 keys, 'ProfileID' for the destroying player profile ID and 'Store' for the destroying player store platform ID, if available.
 
 ctf_turret_repaired (23):
 Triggers when a turret is repaired.
 "ID": ID of the base turret
 "Team": Returns the team ID of the turret that was repaired.
 "RepairerID": Returns the player ID of the player who repaired the turret, if available.
+"RepairerProfile": Holds a JSON string with 2 keys, 'ProfileID' for the repairing player profile ID and 'Store' for the repairing player store platform ID, if available.
 
 ctf_turret_destroyed (24):
 Triggers when a turret is destroyed.
 "ID": ID of the base turret
 "Team": Returns the team ID of the turret that was destroyed.
 "KillerID": Returns the player ID of the player who destroyed the turret, if available.
+"KillerProfile": Holds a JSON string with 2 keys, 'ProfileID' for the destroying player profile ID and 'Store' for the destroying player store platform ID, if available.
 
 ctf_resupply_repaired (25):
 Triggers when a resupply station is repaired.
 "ID": ID of the resupply station
 "Team": Returns the team ID of the resupply that was repaired.
 "RepairerID": Returns the player ID of the player who repaired the resupply, if available.
+"RepairerProfile": Holds a JSON string with 2 keys, 'ProfileID' for the repairing player profile ID and 'Store' for the repairing player store platform ID, if available.
 
 ctf_resupply_destroyed (26):
 Triggers when a resupply station is destroyed.
 "ID": ID of the resupply station
 "Team": Returns the team ID of the resupply that was destroyed.
 "KillerID": Returns the player ID of the player who destroyed the resupply, if available.
+"KillerProfile": Holds a JSON string with 2 keys, 'ProfileID' for the destroying player profile ID and 'Store' for the destroying player store platform ID, if available.
 
 match_end (27):
 Triggers when the current match ends.
@@ -267,6 +295,7 @@ Triggers when the control point flag unlocks for enemies to capture.
 survival_buy_chest (32):
 Triggers when a player opens a chest.
 "PlayerID": Player ID of the player who opened the chest.
+"Profile": Holds a JSON string with 2 keys, 'ProfileID' for the opening player profile ID and 'Store' for the opening player store platform ID
 "ChestID": ID of the chest that was opened.
 "ChestCost": Returns the cost to open the chest, only on Survival mode.
 "PlayerMoney": Returns what the buying player's money amount is after buying the chest, only on Survival mode.
@@ -319,15 +348,15 @@ No additional JSON data.
 
 chat_message (42):
 Triggers when a player sends a chat message in the Server tab.
-"PlayerID": Gives the ID of the player who sent the message.
+"PlayerID": Gives the ID of the player who sent the message, will be '-1' if sent by the server
 "Name": Name of the user who sent the message.
-"Profile": Returns the profile ID of the sending user.
-"Store": The platform the player is using (Steam, gamejolt, etc)
+"Profile": Holds a JSON string with 2 keys, 'ProfileID' for the chatting player profile ID and 'Store' for the chatting player's store platform ID, will be blank if sent by the server
 "Message": Returns the chat message itself.
 
 survival_get_vice (43):
 Triggers when a player collects a vice in Survival mode.
 "PlayerID": The player ID of the collecting player
+"Profile": Holds a JSON string with 2 keys, 'ProfileID' for the player profile ID and 'Store' for the player's store platform ID
 "ViceID": The ID of the type of vice collected
 "X": The X position of where the vice was.
 "Y": The Y position of where the vice was.
@@ -335,35 +364,42 @@ Triggers when a player collects a vice in Survival mode.
 survival_use_vice (44):
 Triggers when a player uses a consumable vice. (Rubbing Alcohol, Smokes, etc)
 "PlayerID": The player ID of who used the vice.
+"Profile": Holds a JSON string with 2 keys, 'ProfileID' for the player profile ID and 'Store' for the player's store platform ID
 "ViceID": The ID of the vice being consumed
 
 survival_player_revive (45):
 Triggers when a player is revived outside of a new wave starting.
 "RevivingPlayerID": The player ID of the reviving player.
 "SaviorPlayerID": The player ID of the player who revived the dead player. Will be the same as RevivingPlayerID if they revived themselves.
+"RevivingProfile": Holds a JSON string with 2 keys, 'ProfileID' for the reviving player profile ID and 'Store' for the reviving player's store platform ID
+"SaviorProfile": Holds a JSON string with 2 keys, 'ProfileID' for the saving player profile ID and 'Store' for the saving player's store platform ID
 "Antacids": Will be set to "1" if the savior player used the antacids vice.
 "Cost": The amount of money it cost to revive the dead player, unless they used the antacids vice then it is set to "1"
 
 player_taunt (46):
 Triggers when a player uses a emote, such as /drink or /smoke
 "PlayerID": The ID of the player who emoted.
+"Profile": Holds a JSON string with 2 keys, 'ProfileID' for the player profile ID and 'Store' for the player's store platform ID
 "TauntID": The ID of the emote used.
 
 survival_complete_mission (47):
 Triggered when a player completes a mission from the bar in Survival.
 "PlayerID": The ID of the player.
+"Profile": Holds a JSON string with 2 keys, 'ProfileID' for the player profile ID and 'Store' for the player's store platform ID
 "Reward": Returns how much money the player was rewarded.
 "Type": Returns the ID of what mission was completed.
 
 survival_take_mission (48):
 Triggered when a player accepts a mission from the bar in Survival.
 "PlayerID": The ID of the player.
+"Profile": Holds a JSON string with 2 keys, 'ProfileID' for the player profile ID and 'Store' for the player's store platform ID
 "Reward": Returns how much money the player will be rewarded.
 "Type": Returns the ID of what mission was accepted.
 
 survival_fail_mission (49):
 Triggered when a player fails or abandons a mission from the bar in Survival.
 "PlayerID": The ID of the player.
+"Profile": Holds a JSON string with 2 keys, 'ProfileID' for the player profile ID and 'Store' for the player's store platform ID
 "Reward": Returns how much money the player would have been rewarded.
 "Type": Returns the ID of what mission was failed.
 ```
