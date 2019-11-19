@@ -195,7 +195,7 @@ if connected == 1: #use 'connected' to start the main loop if a connection is ma
 					if event_id == rcon_event.chat_message.value:
 						js = json.loads(message_string) #message_string is the json string, so pass it through the json module
 						timestamp = str(datetime.datetime.now().strftime("%H:%M:%S")) #generate a time stamp
-						id = int(js['ID']) #get the player ID of the player who sent the message and make it an integer
+						id = int(js['PlayerID']) #get the player ID of the player who sent the message and make it an integer
 						username = js['Name'] #get the username of the player who sent the message
 						chat = js['Message'] #get the message text that was sent
 						if id != -1: #ignore the message if it was sent by the server (ID will be -1)
