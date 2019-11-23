@@ -60,6 +60,7 @@ No additional JSON data.
 player_connect (4):
 Triggers when a new player connects to the server.
 "IP": The IP address of the connecting player.
+"PlayerName": The player name of the connecting player.
 "PlayerID": The player ID of the connecting player.
 "Profile": Holds a JSON string with 2 keys, 'ProfileID' for the player profile ID and 'Store' for the player's store platform ID
 "IsAdmin": Returns whether the connecting player is an admin (1) or not (0).
@@ -429,6 +430,8 @@ Look below on further documentation for using the request_data RCON event and th
   "Money": The current amount of money the player has in Survival or Zombrains.
   "RespawnCost": The player's respawn cost needed to revive in Survival.
   "Premium": Returns "1" if the player owns Boring Man Premium, "0" if they are F2P.
+  "X": Returns the X coordinate of the player. If they are dead, this key will not be present.
+  "Y": Returns the Y coordinate of the player. If they are dead, this key will not be present.
 }
 ```
 
