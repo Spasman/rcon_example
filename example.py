@@ -67,6 +67,9 @@ class rcon_event(Enum):
 	survival_complete_mission = 47
 	survival_take_mission = 48
 	survival_fail_mission = 49
+	zombrains_revive = 50
+	zombrains_buy_weapon = 51
+	zombrains_begin = 52
 
 #use these enums when sending requests to your server so the server knows what to do with them
 class rcon_receive(Enum):
