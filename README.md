@@ -417,7 +417,7 @@ Triggered when a player buys a weapon from a weapon printer.
 "Cost": The amount of money the bought weapon cost.
 
 zombrains_begin (52):
-Triggered when a player fails or abandons a mission from the bar in Survival.
+Triggered when the match starts in Zombrains.
 No additional JSON data.
 ```
 
