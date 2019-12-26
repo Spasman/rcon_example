@@ -403,6 +403,22 @@ Triggered when a player fails or abandons a mission from the bar in Survival.
 "Profile": Holds a JSON string with 2 keys, 'ProfileID' for the player profile ID and 'Store' for the player's store platform ID
 "Reward": Returns how much money the player would have been rewarded.
 "Type": Returns the ID of what mission was failed.
+
+zombrains_revive (50):
+Triggered when a zombie player revives from killing players (or through console command):
+"PlayerID": The ID of the player.
+"Profile": Holds a JSON string with 2 keys, 'ProfileID' for the player profile ID and 'Store' for the player's store platform ID
+
+zombrains_buy_weapon (51):
+Triggered when a player buys a weapon from a weapon printer.
+"PlayerID": The ID of the player.
+"Profile": Holds a JSON string with 2 keys, 'ProfileID' for the player profile ID and 'Store' for the player's store platform ID
+"Weapon": The ID of the weapon that was bought.
+"Cost": The amount of money the bought weapon cost.
+
+zombrains_begin (52):
+Triggered when a player fails or abandons a mission from the bar in Survival.
+No additional JSON data.
 ```
 
 ### PlayerData JSON
