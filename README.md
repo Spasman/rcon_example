@@ -433,12 +433,12 @@ The helicopter doesn't always stop exactly at the coordinates reported in the zo
 
 zombrains_helicopter_player_boarded (55):
 Triggered when a human player boards the helicopter in Zombrains.
-"PlayerID": The ID of the player.
+"PlayerID": The ID of the player boarding the helicopter.
 "Profile": Holds a JSON string with 2 keys, 'ProfileID' for the player profile ID and 'Store' for the player's store platform ID
 
 zombrains_end (56):
 Triggered when the Zombrains match ends.
-The zombies win if "Alive" returns as "0" (and "Dead" hasn't), and the humans win if its vice versa.
+The zombies win if "Alive" returns as "0", the humans win if "Alive" is anything higher then "0".
 "Alive": How many human players are either alive or has escaped via helicopter.
 "Dead": How many zombie players there are.
 ```
