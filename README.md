@@ -419,6 +419,28 @@ Triggered when a player buys a weapon from a weapon printer.
 zombrains_begin (52):
 Triggered when the match starts in Zombrains.
 No additional JSON data.
+
+zombrains_helicopter_arriving (53):
+Triggered when the helicopter spawns to pick up the surviving humans in Zombrains.
+"LandingX": The X coordinate of where the helicopter is planning to land.
+"LandingY": The Y coordinate of where the helicopter is planning to land.
+
+zombrains_helicopter_boarding (54):
+Triggered when the helicopter reaches the landing zone and is accepting human players to board in Zombrains.
+The helicopter doesn't always stop exactly at the coordinates reported in the zombrains_helicopter_arriving event, so thats why its position is recorded here as well.
+"X": The X coordinate of where the helicopter is.
+"Y": The Y coordinate of where the helicopter is.
+
+zombrains_helicopter_player_boarded (55):
+Triggered when a human player boards the helicopter in Zombrains.
+"PlayerID": The ID of the player.
+"Profile": Holds a JSON string with 2 keys, 'ProfileID' for the player profile ID and 'Store' for the player's store platform ID
+
+zombrains_end (56):
+Triggered when the Zombrains match ends.
+The zombies win if "Alive" returns as "0" (and "Dead" hasn't), and the humans win if its vice versa.
+"Alive": How many human players are either alive or has escaped via helicopter.
+"Dead": How many zombie players there are.
 ```
 
 ### PlayerData JSON
