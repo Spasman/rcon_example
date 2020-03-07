@@ -441,6 +441,21 @@ Triggered when the Zombrains match ends.
 The zombies win if "Alive" returns as "0", the humans win if "Alive" is anything higher then "0".
 "Alive": How many human players are either alive or has escaped via helicopter.
 "Dead": How many zombie players there are.
+
+game_over (57):
+Triggered the very same frame the game has ended. More precise then the match_end RCON event, but does not include PlayerData.
+"WinnerText": Returns the string displayed on the scoreboard that says the winner or otherwise.
+"WinnerColor": Returns the GML color code of the WinnerText string.
+"WinnerID": Returns the player ID of the winner, if it's a game mode like Deathmatch. Returns -1 if not available.
+"WinnerTeam": Returns the team ID that won the match if its a team-based game mode. Returns -1 if not available.
+"GameModeID": Returns the ID of the currently selected game mode.
+"CurrentMapName": Returns the name of the map that just ended
+"CurrentMapFile": Returns the file path of the map that just ended
+
+server_empty (58):
+Triggered when the last human player (except the host player) has quit. You can check if the server is literally empty by checking that the 'Bots' and 'Host' key both return '0'.
+"Bots": Returns the amount of player bots currently playing.
+"Host": Returns '1' when the host player is present, '0' when not (dedicated server)
 ```
 
 ### PlayerData JSON
@@ -470,6 +485,8 @@ Look below on further documentation for using the request_data RCON event and th
   "Premium": Returns "1" if the player owns Boring Man Premium, "0" if they are F2P.
   "X": Returns the X coordinate of the player. If they are dead, this key will not be present.
   "Y": Returns the Y coordinate of the player. If they are dead, this key will not be present.
+  "ClanID": Returns the ID of the Steam Group the player's clan is associated with. Will be an empty string if not in a clan.
+  "ClanTag": Returns the clan tag of the clan this player is in. Will be an empty string if not in a clan.
 }
 ```
 
