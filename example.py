@@ -74,6 +74,8 @@ class rcon_event(Enum):
 	zombrains_helicopter_boarding = 54
 	zombrains_helicopter_player_boarded = 55
 	zombrains_end = 56
+	game_over = 57
+	server_empty = 58
 
 #use these enums when sending requests to your server so the server knows what to do with them
 class rcon_receive(Enum):
