@@ -66,7 +66,7 @@ Triggers when a new player connects to the server.
 "IsAdmin": Returns whether the connecting player is an admin (1) or not (0).
 
 player_spawn (5):
-Triggers when a player or NPC respawns.
+Triggers when a player or NPC respawns. The weapons returned are not always what the player picks in the loadout, depending on when they finish selecting their loadout. You should use player_loadout for handling any loadout weapons.
 "PlayerID": Returns the ID of the player who spawned.
 "Profile": Holds a JSON string with 2 keys, 'ProfileID' for the player profile ID and 'Store' for the player's store platform ID
 "X": Returns the X coordinate of where the player spawned.
@@ -94,6 +94,7 @@ Triggers when a player dies.
 "KillerWeapon": The ID of the weapon that the killer used.
 "Headshot": Returns whether the victim was killed by a head shot (or other critical attacks)
 "DeathType": Returns the death animation of the victim, if available.
+"Drone": Returns "1" if the victim was killed by a Drone. The KillerWeapon should return the weapon used by the Drone.
 "Teamkill": Returns whether the kill was a teamkill or not. Friendly Fire mutator required.
 "VictimX": Returns the X coordinate of where the victim died, if available.
 "VictimY": Returns the Y coordinate of where the victim died, if available.
@@ -286,11 +287,11 @@ Triggers at the start of a new wave in Survival mode.
 "Enemies": Returns the amount of enemies needed to be defeated this wave.
 "Chests": Returns the amount of chests that have spawned.
 "ChestPrice": Returns the money cost of opening a chest for this wave.
-"CaptureProgress": Returns the capture progress of the flag before the wave ended.
 "ChestCrash": Returns whether chest prices have crashed and are cheaper.
 
-survival_flag_unlocked (31):
-Triggers when the control point flag unlocks for enemies to capture.
+survival_wave_begins (31):
+Triggers when the control point flag unlocks for enemies to capture. Turns out this still triggers during Survival Classic or when the prep time is set to 0, will probably changed to save bandwidth.
+"WaveObjective": The ID of the objective assigned to the wave.
 "WaveNumber": The current wave the Survival match is on.
 
 survival_buy_chest (32):
@@ -359,11 +360,12 @@ Triggers when a player collects a vice in Survival mode.
 "PlayerID": The player ID of the collecting player
 "Profile": Holds a JSON string with 2 keys, 'ProfileID' for the player profile ID and 'Store' for the player's store platform ID
 "ViceID": The ID of the type of vice collected
+"Amount": Returns the amount the player got, will normally return "1" unless the player used the Hot Wings vice to pick up more.
 "X": The X position of where the vice was.
 "Y": The Y position of where the vice was.
 
 survival_use_vice (44):
-Triggers when a player uses a consumable vice. (Rubbing Alcohol, Smokes, etc)
+Triggers when a player uses a consumable vice. (Rubbing Alcohol, Smokes, etc). Forgot to have this trigger when using Hot Wings, will be fixed. 
 "PlayerID": The player ID of who used the vice.
 "Profile": Holds a JSON string with 2 keys, 'ProfileID' for the player profile ID and 'Store' for the player's store platform ID
 "ViceID": The ID of the vice being consumed
@@ -456,6 +458,61 @@ server_empty (58):
 Triggered when the last human player (except the host player) has quit. You can check if the server is literally empty by checking that the 'Bots' and 'Host' key both return '0'.
 "Bots": Returns the amount of player bots currently playing.
 "Host": Returns '1' when the host player is present, '0' when not (dedicated server)
+
+weaponsdeal_rankchange (59):
+Triggered when a player ranks up or down in Weapons Deal and gets a new weapon. I guess I should add the weapon ID too at some point.
+"PlayerID": The ID of the player.
+"Profile": Holds a JSON string with 2 keys, 'ProfileID' for the player profile ID and 'Store' for the player's store platform ID
+"WeaponsDealRank": The rank the player changed to
+
+takeover_flagcapture (60):
+Triggered when a team caps a flag in Take Over.
+"FlagID": The ID of the capped flag in the current match.
+"FlagX": The X position of the capped flag
+"FlagY": The Y position of the capped flag
+"NewOwner" The team ID that captured the point
+"LastOwner": The team ID of the other team. Don't know why I added this, will probably remove.
+"FlagsTeamOne": The current amount of flags owned by team 1 (USC)
+"FlagsTeamTwo": The current amount of flags owned by team 2 (THE MAN)
+
+takeover_flagscreated (61):
+Triggered when the match starts in Take Over, or when the flags are randomly cycled.
+"FlagAmount": The amount of flags spawned. Should be used with FlagData# below.
+"Team1Score": The current score of team 1 (USC)
+"Team2Score": The current score of team 2 (THE MAN)
+
+Similar to how PlayerData# works, takover_flagscreated will return a set of JSONs that contain data for each flag spawned.
+"FlagData#": {
+  "FlagID": The ID of the flag
+  "FlagX": The X position of the flag
+  "FlagY": The Y position of the flag
+}
+
+player_loadout (62):
+Triggered when a player finishes using the load out menu. This is similar to player_spawn, but sometimes players do not select their loadout until after they spawn.
+"PlayerID": Returns the ID of the player who spawned.
+"Profile": Holds a JSON string with 2 keys, 'ProfileID' for the player profile ID and 'Store' for the player's store platform ID
+"Weap1": Returns the player's primary weapon.
+"Weap2": Returns the player's holstered weapon.
+"Dualwield": Returns whether the player had 'dual-wielding' checked in their loadout
+"Equip": Returns the player's grenade or equipment third slot item.
+"OffWeap": Returns the player's "offhand" weapon when dual-wielding. Returns as 0 if they aren't dual-wielding.
+"OffWeap2": Returns the player's "offhand" holstered weapon when dual-wielding with compact weapons. Returns as 0 if they aren't dual-wielding.
+
+survival_bomb_defused (63):
+Triggered when a bomb is defused in Survival.
+"TimeLeft": Returns how much time was left on the bomb when defused.
+"Defuser": Returns the ID of the player who defused.
+
+survival_bomb_exploded (64):
+Triggered when a bomb explodes in Survival and ends the match. This event will trigger before any of the match ending RCON events are triggered.
+No additional JSON data.
+
+survival_bomb_rearmed (65):
+Triggered when Bomb Dude, Demolitions Guy, Operator or EXPLODEBOT 5000 re-arm a defused bomb.
+"TimeLeft": How much time is left on the bomb that was rearmed.
+
+NOTE: For the survival bomb RCON events, multiple bombs were added after these were created and I forgot to update them.. They will be updated with some way to ID the bomb that triggered the event at some point.
 ```
 
 ### PlayerData JSON
@@ -476,6 +533,7 @@ Look below on further documentation for using the request_data RCON event and th
   "Assists": How many assists the player currently has.
   "Score": The players current score.
   "Profile": The profile ID of the player.
+  "WeaponsDealRank": If the server is on Weapons Deal, this will return their current rank
   "Store": What platform the player is on. (Steam, Gamejolt, etc)
   "Alive": Returns "1" if the player is currently alive, "0" for dead
   "Bot": Returns "1" if this player is a bot. "0" for human.
