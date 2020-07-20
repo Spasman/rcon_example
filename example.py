@@ -76,6 +76,13 @@ class rcon_event(Enum):
 	zombrains_end = 56
 	game_over = 57
 	server_empty = 58
+	weaponsdeal_rankchange = 59
+	takeover_flagcapture = 60
+	takeover_flagscreated = 61
+	player_loadout = 62
+	survival_bomb_defused = 63
+	survival_bomb_exploded = 64
+	survival_bomb_rearmed = 65
 
 #use these enums when sending requests to your server so the server knows what to do with them
 class rcon_receive(Enum):
