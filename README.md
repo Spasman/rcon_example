@@ -365,7 +365,7 @@ Triggers when a player collects a vice in Survival mode.
 "Y": The Y position of where the vice was.
 
 survival_use_vice (44):
-Triggers when a player uses a consumable vice. (Rubbing Alcohol, Smokes, etc). Forgot to have this trigger when using Hot Wings, will be fixed. 
+Triggers when a player uses a consumable vice. (Rubbing Alcohol, Smokes, Hot Wings, etc)
 "PlayerID": The player ID of who used the vice.
 "Profile": Holds a JSON string with 2 keys, 'ProfileID' for the player profile ID and 'Store' for the player's store platform ID
 "ViceID": The ID of the vice being consumed
