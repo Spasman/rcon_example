@@ -354,6 +354,7 @@ Triggers when a player sends a chat message in the Server tab.
 "Name": Name of the user who sent the message.
 "Profile": Holds a JSON string with 2 keys, 'ProfileID' for the chatting player profile ID and 'Store' for the chatting player's store platform ID, will be blank if sent by the server
 "Message": Returns the chat message itself.
+"Team": Returns 0 if all chat, returns 1 or 2 if chatting only to team
 
 survival_get_vice (43):
 Triggers when a player collects a vice in Survival mode.
