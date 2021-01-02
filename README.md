@@ -390,21 +390,24 @@ survival_complete_mission (47):
 Triggered when a player completes a mission from the bar in Survival.
 "PlayerID": The ID of the player.
 "Profile": Holds a JSON string with 2 keys, 'ProfileID' for the player profile ID and 'Store' for the player's store platform ID
-"Reward": Returns how much money the player was rewarded.
+"Amount": Returns the reward amount for the mission. Either the amount of money, or the amount of the vice given defined in "Vice"
+"Vice": Returns the vice ID if the mission reward is a vice. If this is -1, then the reward is money.
 "Type": Returns the ID of what mission was completed.
 
 survival_take_mission (48):
 Triggered when a player accepts a mission from the bar in Survival.
 "PlayerID": The ID of the player.
 "Profile": Holds a JSON string with 2 keys, 'ProfileID' for the player profile ID and 'Store' for the player's store platform ID
-"Reward": Returns how much money the player will be rewarded.
+"Amount": Returns the reward amount for the mission. Either the amount of money, or the amount of the vice given defined in "Vice"
+"Vice": Returns the vice ID if the mission reward is a vice. If this is -1, then the reward is money.
 "Type": Returns the ID of what mission was accepted.
 
 survival_fail_mission (49):
 Triggered when a player fails or abandons a mission from the bar in Survival.
 "PlayerID": The ID of the player.
 "Profile": Holds a JSON string with 2 keys, 'ProfileID' for the player profile ID and 'Store' for the player's store platform ID
-"Reward": Returns how much money the player would have been rewarded.
+"Amount": Returns the reward amount for the mission. Either the amount of money, or the amount of the vice given defined in "Vice"
+"Vice": Returns the vice ID if the mission reward is a vice. If this is -1, then the reward is money.
 "Type": Returns the ID of what mission was failed.
 
 zombrains_revive (50):
