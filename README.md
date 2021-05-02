@@ -516,6 +516,14 @@ survival_bomb_rearmed (65):
 Triggered when Bomb Dude, Demolitions Guy, Operator or EXPLODEBOT 5000 re-arm a defused bomb.
 "TimeLeft": How much time is left on the bomb that was rearmed.
 
+sleep (66):
+Triggered if the dedicated server falls sleep to save power.
+No additional JSON data.
+
+wake (67):
+Triggered if the dedicated server wakes from its power saving.
+No additional JSON data.
+
 NOTE: For the survival bomb RCON events, multiple bombs were added after these were created and I forgot to update them.. They will be updated with some way to ID the bomb that triggered the event at some point.
 ```
 
