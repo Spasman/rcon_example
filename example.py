@@ -83,6 +83,8 @@ class rcon_event(Enum):
 	survival_bomb_defused = 63
 	survival_bomb_exploded = 64
 	survival_bomb_rearmed = 65
+	server_sleep = 66
+	server_wake = 67
 
 #use these enums when sending requests to your server so the server knows what to do with them
 class rcon_receive(Enum):
