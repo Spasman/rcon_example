@@ -111,7 +111,7 @@ connected = 0 #used for allowing the main loop during a connection
 timeout = 0 #used for timing out a bad connection
 
 #this function isn't used but its example code of parsing the 'PlayerData' JSON set
-#It itorates through an entire JSON string looking for keys that start with the string 'PlayerData'
+#It iterates through an entire JSON string looking for keys that start with the string 'PlayerData'
 #If found, you can use the 'k' variable as an accessor for each key/value pair
 #just look at the damn code, whatever, fuck
 def scoreboard(jsonString):
